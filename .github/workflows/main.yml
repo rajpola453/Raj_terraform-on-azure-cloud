@@ -16,16 +16,19 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
+    - name: 'Change to Terraform Directory'
+      run: cd 03-Terraform-Command-Basics/terraform-manifests
+
     - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Terraform Init
-      run: terraform init -chdir=/03-Terraform-Command-Basics/terraform-manifests/
+      run: terraform init 
 
     - name: Terraform Plan
-      run: terraform plan -chdir=/03-Terraform-Command-Basics/terraform-manifests/
+      run: terraform plan 
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve -chdir=/03-Terraform-Command-Basics/terraform-manifests/
+      run: terraform apply -auto-approve 
