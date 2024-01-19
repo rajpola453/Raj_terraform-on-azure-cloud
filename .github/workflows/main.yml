@@ -1,36 +1,41 @@
-name: 'Deploy Azure Resource Group with Terraform'
+name: 'Terraform Azure'
 
 on:
   push:
     branches:
-      - main
+    - main # or any other branch you want to trigger on
 
 jobs:
-  build_and_deploy:
+  terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
 
+    # Environment variables can be set as secrets in your repository settings
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
     steps:
-    - name: Checkout Repository
+    - name: 'Checkout'
       uses: actions/checkout@v2
 
-    - name: Setup Terraform
+    - name: 'Setup Terraform'
       uses: hashicorp/setup-terraform@v1
-
-      run: cd 03-Terraform-Command-Basics/terraform-manifests
-
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: 'Terraform Init'
       run: terraform init
       working-directory: 03-Terraform-Command-Basics/terraform-manifests
 
+    - name: 'Terraform Format'
+      run: terraform fmt -check
+      working-directory: 03-Terraform-Command-Basics/terraform-manifests
+
     - name: 'Terraform Plan'
-      run: terraform Plan
-      working-directory: 03-Terraform-Command-Basics/terraform-manifests 
+      run: terraform plan
+      working-directory: 03-Terraform-Command-Basics/terraform-manifests
 
     - name: 'Terraform Apply'
-      run: terraform Apply
+      run: terraform apply -auto-approve
       working-directory: 03-Terraform-Command-Basics/terraform-manifests 
