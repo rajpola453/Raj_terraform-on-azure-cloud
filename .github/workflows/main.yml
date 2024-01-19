@@ -1,0 +1,31 @@
+name: 'Deploy Azure Resource Group with Terraform'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Terraform Init
+      run: terraform init terraform-manifests/
+
+    - name: Terraform Plan
+      run: terraform plan terraform-manifests/
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve terraform-manifests/
