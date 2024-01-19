@@ -16,7 +16,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
-          run: cd 03-Terraform-Command-Basics/terraform-manifests
+      run: cd 03-Terraform-Command-Basics/terraform-manifests
 
     - name: Azure Login
       uses: azure/login@v1
