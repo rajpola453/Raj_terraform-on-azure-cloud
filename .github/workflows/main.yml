@@ -24,6 +24,11 @@ jobs:
     - name: 'Setup Terraform'
       uses: hashicorp/setup-terraform@v1
 
+    - name: 'Login to Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: 'Terraform Init'
       run: terraform init
       working-directory: 03-Terraform-Command-Basics/terraform-manifests
