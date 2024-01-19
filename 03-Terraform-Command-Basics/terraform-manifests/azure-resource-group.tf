@@ -27,5 +27,6 @@ terraform {
     storage_account_name = "cs210032003424ea32b"
     container_name       = "state"
     key                  = "statefile.tfstate"
+    access_key           = "wkUuucrCO0nrp2SZniGXXQehuWN6UTfivbNwyw14AWoLgDktVsxpaOKIjbaTYyl/heWAUaDdItW4+AStFGHgZA=="
   }
 }
