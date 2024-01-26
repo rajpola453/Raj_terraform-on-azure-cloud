@@ -20,7 +20,7 @@ provider "azurerm" {
 # Create Resource Group 
 resource "azurerm_resource_group" "my_demo_rg2" {
   location = "eastus"
-  name     = "my-demo-rg3"
+  name     = "my-demo-rg2"
 }
 
 #refering state file in azure
